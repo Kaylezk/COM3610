@@ -6,11 +6,6 @@ import logging as log
 
 
 class Tabu_Search():
-    """
-        This simple (naive) test generator creates roads using 4 points randomly placed on the map.
-        We expect that this generator quickly creates plenty of tests, but many of them will be invalid as roads
-        will likely self-intersect.
-    """
 
     def __init__(self, executor=None, map_size=None):
         self.executor = executor
