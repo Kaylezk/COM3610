@@ -1,7 +1,3 @@
-#
-#
-#
-#
 import click
 import importlib
 import traceback
@@ -249,15 +245,16 @@ def setup_logging(log_to, debug):
     # Conditionally check that at least one option among the defined is set
     at_least_one_must_be_defined = [ ['time_budget'] ]
 ))
-@click.option('--executor', type=click.Choice(['mock', 'beamng', 'dave2'], case_sensitive=False), default="mock",
+@click.option('--executor', type=click.Choice(['mock', 'beamng', 'dave2'], case_sensitive=False), default="dave2",
               show_default='Mock Executor (meant for debugging)',
               help="The name of the executor to use. Currently we have 'mock', 'beamng' or 'dave2'.")
 @click.option('--dave2-model', required=False, type=click.Path(exists=True),
+              default='D:\\Code\\BlackBoard\\COM3610\\dave2\\beamng-dave2.h5',
               help="Path of the pre-trained Dave2 driving AI model (in .h5 format). Mandatory if the executor is dave2")
-@click.option('--beamng-home', required=False, default=None, type=click.Path(exists=True),
+@click.option('--beamng-home', required=False, default='E:\\Data\\Download\\BeamNG\\BeamNG.tech.v0.26.2.0', type=click.Path(exists=True),
               show_default='None',
               help="Customize BeamNG executor by specifying the home of the simulator.")
-@click.option('--beamng-user', required=False, default=None, type=click.Path(exists=True),
+@click.option('--beamng-user', required=False, default='E:\\Data\\Download\\BeamNG\\user', type=click.Path(exists=True),
               show_default='Currently Active User (~/BeamNG.tech/)',
               help="Customize BeamNG executor by specifying the location of the folder "
                    "where levels, props, and other BeamNG-related data will be copied."
@@ -274,7 +271,7 @@ def setup_logging(log_to, debug):
               show_default='0.95',
               help="The tolerance value that defines how much of the vehicle should be outside the lane to "
                    "trigger a failed test. Must be a value between 0.0 (all oob) and 1.0 (no oob)")
-@click.option('--speed-limit', type=int, default=70, callback=validate_speed_limit,
+@click.option('--speed-limit', type=int, default=28, callback=validate_speed_limit,
               show_default='70 Km/h',
               help="The max speed of the ego-vehicle"
                    "Expressed in Kilometers per hours")
