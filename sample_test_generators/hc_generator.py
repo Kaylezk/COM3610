@@ -60,7 +60,7 @@ class HC():
         self.new_roads = self.neighbor()
         self._execute(self.new_roads)
 
-        if self.new_fitness >= self.current_fitness:
+        if self.new_fitness > self.current_fitness:
             self.current_fitness = self.new_fitness
             self.road_points = self.new_roads
             self.add_info()
