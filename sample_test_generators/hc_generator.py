@@ -16,7 +16,8 @@ class HC():
         self.executor = executor
         self.map_size = map_size
 
-        self.flag = True
+        self.init_flag = True
+        self.valid_flag = True
 
         self.road_points = []
         self.new_roads = []
@@ -88,7 +89,7 @@ class HC():
         oob_percentage = [state.oob_percentage for state in execution_data]
 
         if test_outcome != 'INVALID':
-            self.flag = False
+            self.valid_flag = False
             if len(oob_percentage) > 0:
                 log.info("Collected %d states information. Max is %.3f", len(oob_percentage), max(oob_percentage))
                 self.new_fitness = max(oob_percentage)
@@ -109,12 +110,13 @@ class HC():
                 sleep(0.5)
 
                 # first test
-                if self.flag:
+                if self.init_flag:
                     self.new_roads = self.random_road()
                     self._execute(self.new_roads)
 
                     # initial test
-                    if not self.flag:
+                    if not self.valid_flag:
+                        self.init_flag = False
                         self.current_fitness = self.new_fitness
                         self.road_points = self.new_roads
                         self.add_info()
